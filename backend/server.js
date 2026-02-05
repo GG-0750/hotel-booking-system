@@ -16,9 +16,26 @@ const hotels = [
   { id: 5, name: "JW Marriott", city: "Pune", price: 10000, rating: 4.5, imageURL: "https://example.com/marriott.jpg" }
 ];
 
-app.get("/hotels", (req, res) => {
+app.get("/hotels", (req, res) => {  //hotels endpoint to return the list of hotels
   res.json(hotels);
 });
+
+
+app.get("/hotels/search", (req, res) => {  //search endpoint to filter hotels based on query parameters
+  const query = req.query.q;
+
+  if (!query) {
+    return res.json(hotels);
+  }
+
+  const filteredHotels = hotels.filter(hotel =>
+    hotel.name.toLowerCase().includes(query.toLowerCase()) ||
+    hotel.city.toLowerCase().includes(query.toLowerCase())
+  );
+
+  res.json(filteredHotels);
+});
+
 
 app.listen(PORT, () => {
   console.log(`Backend server running on port ${PORT}`);
