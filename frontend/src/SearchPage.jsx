@@ -1,21 +1,31 @@
-import { useState } from 'react';
-import Search from './components/search'; // if you want, or we can move input here
-import { hotels } from './mockhotels';
+import { useEffect,useState } from 'react';
 import Footer from './components/footer';
 
 function SearchPage() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
 
-  const handleSearch = () => {
-    const filtered = hotels.filter(h =>
-      h.city.toLowerCase().includes(query.toLowerCase())
-    );
-    setResults(filtered);
+  const handleSearch = async () => {
+    console.log("button was freakin clicked!");
+    try {
+      const res = await fetch(
+        `http://localhost:5000/hotels/search?location=${query}`
+      );
+      if(!res.ok) {throw new Error("Failed to fetch hotels");}
+
+      const data = await res.json();
+      setResults(data);
+      
+    }
+    catch (err) {
+      console.error(err);
+      setResults([]);
+    }
   };
 
+
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#121212', color: '#ffffff', padding: '20px' }}>
+    <div style={{ minHeight: '100vh',width: '100%', backgroundColor: '#121212', color: '#ffffff', padding: '20px' }}>
       <h2 style={{ marginBottom: '20px' }}>Search Hotels</h2>
       <input
         type="text"
@@ -36,8 +46,8 @@ function SearchPage() {
           <p>No results</p>
         ) : (
           results.map(h => (
-            <div key={h.id} style={{ backgroundColor: '#333', padding: '20px', marginTop: '10px', borderRadius: '5px' }}>
-              {h.name} - {h.city}
+            <div key={h._id} style={{ backgroundColor: '#333', padding: '20px', marginTop: '10px', borderRadius: '5px' }}>
+              {h.name} - {h.location} - ₹{h.price} 
             </div>
           ))
         )}

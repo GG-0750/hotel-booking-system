@@ -1,9 +1,11 @@
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+  const navigate = useNavigate();
+
   return (
     <div style={{
-      position: 'relative', // important for z-index
+      position: 'relative',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
@@ -20,6 +22,16 @@ function Home() {
       overflowX: 'hidden'
     }}>
       {/* Floating shapes background */}
+      <style>
+        {`
+          @keyframes float {
+            0% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-20px) translateX(10px); }
+            100% { transform: translateY(0px) translateX(0px); }
+          }
+        `}
+      </style>
+
       <div style={{
         position: 'absolute',
         top: 0,
@@ -32,18 +44,18 @@ function Home() {
         {[...Array(5)].map((_, i) => (
           <div key={i} style={{
             position: 'absolute',
-            width: `${50 + i*20}px`,
-            height: `${50 + i*20}px`,
+            width: `${50 + i * 20}px`,
+            height: `${50 + i * 20}px`,
             backgroundColor: 'rgba(170, 51, 255, 0.1)',
             borderRadius: '50%',
-            animation: `float ${20 + i*5}s ease-in-out infinite`,
-            top: `${i*20}%`,
-            left: `${i*15}%`
+            animation: `float ${10 + i * 2}s ease-in-out infinite`,
+            top: `${i * 20}%`,
+            left: `${i * 15}%`
           }}></div>
         ))}
       </div>
 
-      {/* Main content on top of shapes */}
+      {/* Main content */}
       <h1 style={{
         marginBottom: '40px',
         fontSize: '40px',
@@ -53,8 +65,10 @@ function Home() {
         Hotel Booking System
       </h1>
 
-      <Link to="/search">
-        <button style={{
+      {/* Using navigate() instead of <Link> ensures the button click always works */}
+      <button 
+        onClick={() => navigate('/search')}
+        style={{
           padding: '15px 30px',
           margin: '10px',
           fontSize: '18px',
@@ -64,17 +78,18 @@ function Home() {
           backgroundColor: '#6600cc',
           color: '#ffffff',
           transition: '0.3s',
-          zIndex: 1
+          zIndex: 1,
+          fontWeight: 'bold'
         }}
         onMouseOver={e => e.currentTarget.style.backgroundColor = '#8000ff'}
         onMouseOut={e => e.currentTarget.style.backgroundColor = '#6600cc'}
-        >
-          Search
-        </button>
-      </Link>
+      >
+        Go to Search
+      </button>
 
-      <Link to="/featured">
-        <button style={{
+      <button 
+        onClick={() => navigate('/featured')}
+        style={{
           padding: '15px 30px',
           margin: '10px',
           fontSize: '18px',
@@ -84,14 +99,14 @@ function Home() {
           backgroundColor: '#6600cc',
           color: '#ffffff',
           transition: '0.3s',
-          zIndex: 1
+          zIndex: 1,
+          fontWeight: 'bold'
         }}
         onMouseOver={e => e.currentTarget.style.backgroundColor = '#8000ff'}
         onMouseOut={e => e.currentTarget.style.backgroundColor = '#6600cc'}
-        >
-          Featured Hotels
-        </button>
-      </Link>
+      >
+        View Featured Hotels
+      </button>
     </div>
   );
 }
