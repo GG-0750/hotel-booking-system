@@ -1,6 +1,9 @@
+//ROUTERS y'all
+
+
 const Hotel = require("./models/Hotel");  //mongoose model // represents hotels collection in MongoDB -> USED TO TALK TO DB
 require("dotenv").config();
-
+const Booking = require('./models/Booking');
 const mongoose = require("mongoose");
 
 mongoose.connect(process.env.mongodb_url)
@@ -33,6 +36,23 @@ app.get("/hotels/search", async (req, res) => {
   });
 
   res.json(hotels);
+});
+
+app.post("/api/book", async (req, res) => {
+  try {
+    const { hotelId, customerName } = req.body;
+
+    const newBooking = new Booking({ 
+      hotelId: hotelId, 
+      customerName: customerName 
+    });
+
+    await newBooking.save();
+    res.status(201).json({ message: "Booking successful!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server error: Could not complete booking" });
+  }
 });
 
 
