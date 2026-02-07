@@ -1,5 +1,7 @@
 import { useEffect,useState } from 'react';
 import Footer from './components/footer';
+import './App.css'; 
+
 
 function SearchPage() {
   const [query, setQuery] = useState('');
@@ -48,43 +50,49 @@ function SearchPage() {
   }
 };
 
-  return (
-    <div style={{ minHeight: '100vh', width: '100%', backgroundColor: '#121212', color: '#ffffff', padding: '20px' }}>
-      <h2 style={{ marginBottom: '20px' }}>Search Hotels</h2>
+
+return (
+  <div className="page-container">
+    <h2>Search Hotels</h2>
+    
+    <div className="search-controls">
       <input
         type="text"
         placeholder="Enter city..."
         value={query}
         onChange={e => setQuery(e.target.value)}
-        style={{ padding: '8px', width: '250px', borderRadius: '5px', border: 'none' }}
+        className="search-input"
       />
-      <button
-        onClick={handleSearch}
-        style={{ padding: '8px 12px', marginLeft: '10px', borderRadius: '5px', border: 'none', backgroundColor: '#00aaff', color: '#fff', cursor: 'pointer' }}
-      >
+      <button onClick={handleSearch} className="search-btn">
         Search
       </button>
+    </div>
 
-      <div style={{ marginTop: '20px' }}>
-        {results.length === 0 ? (
-          <p>No results</p>
-        ) : (
-          results.map(h => (
-            <div key={h._id} style={{ backgroundColor: '#333', padding: '20px', marginTop: '10px', borderRadius: '5px' }}>
-              <p>{h.name} - {h.location} - ₹{h.price}</p>
-              <button 
-                onClick={() => handleBook(h._id)} 
-                style={{ marginTop: '10px', cursor: 'pointer', padding: '5px 10px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '4px' }}
-              >
+    <div className="hotel-grid">
+      {results.length === 0 ? (
+        <p className="no-results">No results found. Try searching for "Chennai".</p>
+      ) : (
+        results.map(h => (
+          <div key={h._id} className="hotel-card">
+            {/* If you have images in your DB, add them here */}
+            {h.image && <img src={h.image} alt={h.name} className="hotel-image" />}
+            
+            <div className="hotel-info">
+              <h3>{h.name}</h3>
+              <p>{h.location}</p>
+              <p className="price">₹{h.price} / night</p>
+              
+              <button onClick={() => handleBook(h._id)} className="book-btn">
                 Book Now
               </button>
             </div>
-          ))
-        )}
-      </div>
-      <Footer />
+          </div>
+        ))
+      )}
     </div>
-  );
+    <Footer />
+  </div>
+);
 }
 
 export default SearchPage;

@@ -1,0 +1,68 @@
+/* The Hamburger Button - Transparent & Sleek */
+.hamburger {
+  position: fixed;
+  top: 25px;
+  left: 25px;
+  cursor: pointer;
+  z-index: 1001;
+  padding: 10px;
+  transition: 0.3s;
+}
+
+.line {
+  width: 28px;
+  height: 3px;
+  background-color: #ffffff; 
+  margin: 5px 0;
+  transition: 0.4s;
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5); /* Helps lines show up on light parts of images */
+}
+
+/* Sidebar Panel - Adaptive Glass */
+.nav-menu {
+  position: fixed;
+  left: -300px; 
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  /* Instead of solid black, we use a deep transparent navy/charcoal */
+  background: rgba(15, 23, 42, 0.7); 
+  /* This is the magic: it blurs the background image behind the sidebar */
+  backdrop-filter: blur(15px); 
+  -webkit-backdrop-filter: blur(15px);
+  transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  padding-top: 100px;
+  z-index: 1000;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-menu.active {
+  left: 0;
+}
+
+.nav-menu ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Menu Links - "Delicate" White */
+.nav-menu a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase; /* Makes it look like a luxury hotel site */
+  display: block;
+  padding: 20px 30px;
+  transition: 0.4s ease;
+}
+
+/* Hover: The Blue Neon Glow you liked */
+.nav-menu a:hover {
+  color: #00d4ff;
+  background: rgba(0, 212, 255, 0.1);
+  padding-left: 45px; /* Elegant slide */
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5); /* Text glow */
+}

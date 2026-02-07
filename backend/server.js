@@ -1,17 +1,19 @@
+require("dotenv").config();
+
 //ROUTERS y'all
 
 
 const Hotel = require("./models/Hotel");  //mongoose model // represents hotels collection in MongoDB -> USED TO TALK TO DB
-require("dotenv").config();
 const Booking = require('./models/Booking');
 const mongoose = require("mongoose");
 
-mongoose.connect(process.env.mongodb_url)
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("MongoDB connected"))
   .catch(err => console.log(err));
-
-const express = require("express");
+  
 const cors = require("cors");
+const express = require("express");
+
 const app = express();
 
 const PORT = 5000;
@@ -52,6 +54,19 @@ app.post("/api/book", async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Server error: Could not complete booking" });
+  }
+});
+
+// GET route to fetch all bookings from hotelDB
+app.get("/api/my-bookings", async (req, res) => {
+  try {
+    // .populate('hotelId') automatically fetches the Hotel name/price 
+    // using the ID saved in the booking!
+    const bookings = await Booking.find().populate('hotelId');
+    res.status(200).json(bookings);
+  } catch (error) {
+    console.error("Error fetching bookings:", error);
+    res.status(500).json({ message: "Server error fetching bookings" });
   }
 });
 

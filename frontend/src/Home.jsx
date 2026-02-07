@@ -1,114 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 
-function Home() {
-  const navigate = useNavigate();
-
+const Home = () => {
   return (
-    <div style={{
-      position: 'relative',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      gap: '20px',
-      padding: '0',
+    <div style={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      height: '100vh',
       textAlign: 'center',
-      minHeight: '100vh',
-      width: '100vw',
-      backgroundColor: '#000000',
-      color: '#ffffff',
-      fontFamily: 'Arial, sans-serif',
-      boxSizing: 'border-box',
-      overflowX: 'hidden'
+      background: 'linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1350&q=80")',
+      backgroundSize: 'cover',
+      color: 'white',
+      fontFamily: 'Arial, sans-serif'
     }}>
-      {/* Floating shapes background */}
-      <style>
-        {`
-          @keyframes float {
-            0% { transform: translateY(0px) translateX(0px); }
-            50% { transform: translateY(-20px) translateX(10px); }
-            100% { transform: translateY(0px) translateX(0px); }
-          }
-        `}
-      </style>
-
-      <div style={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        overflow: 'hidden',
-        zIndex: 0
-      }}>
-        {[...Array(5)].map((_, i) => (
-          <div key={i} style={{
-            position: 'absolute',
-            width: `${50 + i * 20}px`,
-            height: `${50 + i * 20}px`,
-            backgroundColor: 'rgba(170, 51, 255, 0.1)',
-            borderRadius: '50%',
-            animation: `float ${10 + i * 2}s ease-in-out infinite`,
-            top: `${i * 20}%`,
-            left: `${i * 15}%`
-          }}></div>
-        ))}
-      </div>
-
-      {/* Main content */}
-      <h1 style={{
-        marginBottom: '40px',
-        fontSize: '40px',
-        color: '#aa33ff',
-        zIndex: 1
-      }}>
-        Hotel Booking System
-      </h1>
-
-      {/* Using navigate() instead of <Link> ensures the button click always works */}
-      <button 
-        onClick={() => navigate('/search')}
-        style={{
-          padding: '15px 30px',
-          margin: '10px',
-          fontSize: '18px',
-          cursor: 'pointer',
-          borderRadius: '8px',
-          border: '2px solid #aa33ff',
-          backgroundColor: '#6600cc',
-          color: '#ffffff',
-          transition: '0.3s',
-          zIndex: 1,
-          fontWeight: 'bold'
-        }}
-        onMouseOver={e => e.currentTarget.style.backgroundColor = '#8000ff'}
-        onMouseOut={e => e.currentTarget.style.backgroundColor = '#6600cc'}
-      >
-        Go to Search
-      </button>
-
-      <button 
-        onClick={() => navigate('/featured')}
-        style={{
-          padding: '15px 30px',
-          margin: '10px',
-          fontSize: '18px',
-          cursor: 'pointer',
-          borderRadius: '8px',
-          border: '2px solid #aa33ff',
-          backgroundColor: '#6600cc',
-          color: '#ffffff',
-          transition: '0.3s',
-          zIndex: 1,
-          fontWeight: 'bold'
-        }}
-        onMouseOver={e => e.currentTarget.style.backgroundColor = '#8000ff'}
-        onMouseOut={e => e.currentTarget.style.backgroundColor = '#6600cc'}
-      >
-        View Featured Hotels
-      </button>
+      <h1 style={{ fontSize: '3.5rem', marginBottom: '10px' }}>Welcome to BookNest</h1>
+      <p style={{ fontSize: '1.5rem' }}>Find your perfect home away from home.</p>
+      <p style={{ marginTop: '20px', fontStyle: 'italic' }}>Use the menu on the top left to start your journey.</p>
     </div>
   );
-}
+};
+
 
 export default Home;
