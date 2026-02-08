@@ -1,189 +1,216 @@
-#root {
+/* ==========================================
+   1. HOME PAGE SECTION
+   ========================================== */
+.home-hero {
   display: flex;
   flex-direction: column;
-  padding: 2rem;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
   text-align: center;
+  color: #ffffff; /* Forces text to be white */
+  text-shadow: 2px 2px 15px rgba(0,0,0,0.9); /* Shadows help text pop */
+  background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), 
+              url("https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1350&q=80");
+  background-size: cover;
+  background-position: center;
+}
+/* Removes any accidental underlines from headers */
+h2 {
+  text-decoration: none !important;
+  border-bottom: none !important;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* The Smooth Transition Animation */
+.fade-exit {
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
 }
 
-@keyframes float {
-  0% { transform: translateY(0) translateX(0); }
-  50% { transform: translateY(-50px) translateX(50px); }
-  100% { transform: translateY(0) translateX(0); }
-}
-@keyframes logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Ensure the Splash Screen stays on top during transition */
+.splash-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
 }
 
-.card {
-  padding: 2em;
+
+/* ==========================================
+   2. SEARCH PAGE & LAYOUT
+   ========================================== */
+.page-container {
+  min-height: 100vh;
+  padding: 100px 60px; /* Room for sidebar and breathing space */
+  background-color: #121212;
+  color: #ffffff;
 }
 
-.read-the-docs {
-  color: #888;
+.search-controls {
+  display: flex;
+  gap: 15px; /* Space between input and button */
+  margin-bottom: 40px;
+  align-items: center;
 }
 
-.hotel-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 25px;
-  padding: 40px;
-}
-
-.hotel-card {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border-radius: 20px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.3s ease;
+.search-input {
+  padding: 14px;
+  width: 350px;
+  border-radius: 10px;
+  background: #1a1a1a;
   color: white;
+  border: 1px solid #333;
 }
 
-.hotel-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
-}
-
-.hotel-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.hotel-info {
-  padding: 20px;
-}
-
-/* The Missing Book Now Button */
-.book-btn {
-  width: 100%;
-  padding: 12px;
-  background: linear-gradient(90deg, #00d4ff, #0072ff);
+.search-btn {
+  padding: 14px 25px;
+  background: #00d4ff;
   color: white;
   border: none;
   border-radius: 10px;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 15px;
-  transition: 0.3s;
 }
 
-.book-btn:hover {
-  filter: brightness(1.2);
-  box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+/* ==========================================
+   3. HOTEL CARDS & GRID
+   ========================================== */
+.hotel-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 30px;
+  padding: 20px 0;
 }
 
-/* Container to keep everything away from the Sidebar icon */
-.page-container {
-  min-height: 100vh;
-  width: 100%;
-  background-color: #121212;
-  color: #ffffff;
-  padding: 80px 40px 40px 80px; /* Extra padding on top/left for the hamburger */
-}
-
-.search-controls {
-  margin-bottom: 30px;
-}
-
-.search-input {
-  padding: 12px;
-  width: 300px;
-  border-radius: 8px;
-  border: 1px solid #444;
-  background: #222;
+.hotel-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: 0.4s ease;
   color: white;
 }
 
-.search-btn {
-  padding: 12px 20px;
-  margin-left: 10px;
-  border-radius: 8px;
+.hotel-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 15px 40px rgba(0, 212, 255, 0.25);
+}
+
+.hotel-image {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.hotel-info {
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between name, price, and button */
+}
+
+.book-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(90deg, #00d4ff, #0072ff);
+  color: white;
   border: none;
-  background-color: #00d4ff;
-  color: #fff;
+  border-radius: 12px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-.search-btn:hover {
-  background-color: #0072ff;
-}
-
-/* Add the .hotel-grid and .hotel-card styles from my previous message here too! */
-
-/* The Receipt Container */
+/* ==========================================
+   4. MY BOOKINGS (RECEIPT LOOK)
+   ========================================== */
 .bookings-container {
-  padding: 80px 40px;
+  padding: 100px 60px;
   min-height: 100vh;
   background-color: #121212;
+  color: white;
 }
 
-/* The "Confirmed" Card Look */
 .booking-card {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.03);
-  margin-bottom: 15px;
-  padding: 20px;
-  border-radius: 12px;
-  border-left: 5px solid #28a745; /* The Green Accent */
-  transition: 0.3s;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 25px;
+  border-radius: 15px;
+  border-left: 6px solid #28a745; /* Confirmed Green border */
+  margin-bottom: 20px;
 }
 
-.booking-card:hover {
-  background: rgba(40, 167, 69, 0.08);
-}
-
-.booking-details h3 {
-  color: #28a745; /* Name in Green */
-  margin: 0 0 5px 0;
+.booking-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left; /* Ensures text aligns neatly to the left */
 }
 
 .status-badge {
   background: #28a745;
   color: white;
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 20px;
-  font-size: 0.8rem;
-  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: bold;
+  width: fit-content;
 }
 
-/* The Red Cancel Button */
 .cancel-btn {
-  background-color: transparent;
   color: #ff4d4d;
   border: 1px solid #ff4d4d;
-  padding: 8px 15px;
-  border-radius: 6px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: transparent;
   cursor: pointer;
   transition: 0.3s;
 }
 
 .cancel-btn:hover {
-  background-color: #ff4d4d;
+  background: #ff4d4d;
   color: white;
-  box-shadow: 0 0 10px rgba(255, 77, 77, 0.4);
+  box-shadow: 0 0 15px rgba(255, 77, 77, 0.3);
+}
+
+/* ==========================================
+   5. ANIMATIONS
+   ========================================== */
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+/* Styling for the Dashboard Hub */
+.empty-state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px;
+  background: rgba(255, 255, 255, 0.02); /* Very faint glass look */
+  border-radius: 20px;
+  border: 1px dashed rgba(255, 255, 255, 0.2); /* Dashed border for empty look */
+  margin-top: 40px;
+  color: #ffffff;
+}
+
+.dashboard-welcome h2 {
+  color: #00d4ff; /* Blue accent for the name */
+  font-size: 2.5rem;
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+.divider {
+  width: 80px;
+  height: 3px;
+  background: #00d4ff;
+  margin-bottom: 10px;
 }

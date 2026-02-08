@@ -57,16 +57,14 @@ app.post("/api/book", async (req, res) => {
   }
 });
 
-// GET route to fetch all bookings from hotelDB
-app.get("/api/my-bookings", async (req, res) => {
+// Updated GET route to match frontend call
+app.get("/bookings", async (req, res) => {
   try {
-    // .populate('hotelId') automatically fetches the Hotel name/price 
-    // using the ID saved in the booking!
-    const bookings = await Booking.find().populate('hotelId');
+    const bookings = await Booking.find(); 
+    console.log("Found bookings:", bookings);
     res.status(200).json(bookings);
   } catch (error) {
-    console.error("Error fetching bookings:", error);
-    res.status(500).json({ message: "Server error fetching bookings" });
+    res.status(500).json({ error: error.message });
   }
 });
 

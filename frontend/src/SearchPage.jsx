@@ -53,7 +53,7 @@ function SearchPage() {
 
 return (
   <div className="page-container">
-    <h2>Search Hotels</h2>
+    <h2>Search Hotels</h2><br></br>
     
     <div className="search-controls">
       <input
