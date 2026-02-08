@@ -10,7 +10,7 @@ import Dashboard from './Dashboard';
 function App() {
   const [showIntro, setShowIntro] = useState(true);
   const [bookings, setBookings] = useState([]);
-  const [isFading, setIsFading] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   
 
 useEffect(() => {
@@ -33,15 +33,17 @@ useEffect(() => {
     });
 }, []);
 
+
+// Splash screen logic: show Home component for 2 seconds, then fade out and show the main app
   useEffect(() => {
     // Start fading out slightly before the 2 seconds are up
-    const fadeTimer = setTimeout(() => setIsFading(true), 1200);
+    const transitionTimer = setTimeout(() => setIsTransitioning(true), 800);
     
     // Completely remove splash screen at 2 seconds
-    const removeTimer = setTimeout(() => setShowIntro(false), 2000); 
+    const removeTimer = setTimeout(() => setShowIntro(false), 1400); 
 
     return () => {
-      clearTimeout(fadeTimer);
+      clearTimeout(transitionTimer);
       clearTimeout(removeTimer);
     };
   }, []);
@@ -49,7 +51,7 @@ useEffect(() => {
   return (
     <>
       {showIntro && (
-        <div className={`splash-wrapper ${isFading ? 'fade-exit' : ''}`}>
+        <div className={`splash-wrapper ${isTransitioning ? 'splash-exit-active' : ''}`}>
           <Home />
         </div>
       )}
@@ -62,7 +64,7 @@ useEffect(() => {
               <Route path="/search" element={<SearchPage />} />
               <Route path="/featured" element={<FeaturedHotelsPage />} />
               <Route path="/" element={<Dashboard bookings={bookings} />} />
-              <Route path="/my-bookings" element={<MyBookings bookings={bookings} />} />
+              <Route path="/my-bookings" element={<MyBookings bookings={bookings} setBookings={setBookings} />} />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
           </div>

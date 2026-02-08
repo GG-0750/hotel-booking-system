@@ -57,14 +57,47 @@ app.post("/api/book", async (req, res) => {
   }
 });
 
+
 // Updated GET route to match frontend call
 app.get("/bookings", async (req, res) => {
   try {
-    const bookings = await Booking.find(); 
-    console.log("Found bookings:", bookings);
+    const bookings = await Booking.find()
+      .populate({
+        path: 'hotelId',
+        model: 'Hotel' 
+      })
+      .exec();
+
+    console.log("DEBUG: First Booking Hotel Name ->", bookings[0]?.hotelId?.name);
+    res.json(bookings);
+  } catch (error) {
+    console.error("Populate Error:", error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+
+// DELETE route to cancel a booking
+app.delete("/bookings/:id", async (req, res) => {
+  try {
+    const deletedBooking = await Booking.findByIdAndDelete(req.params.id);
+    if (!deletedBooking) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+    res.status(200).json({ message: "Booking cancelled successfully" });
+  } catch (error) {
+    console.error("Error deleting booking:", error);
+    res.status(500).json({ message: "Server error during cancellation" });
+  }
+});
+
+app.get("/bookings", async (req, res) => {
+  try {
+    // This looks at the 'hotelId' field and fetches the full Hotel data
+    const bookings = await Booking.find().populate('hotelId').exec();
     res.status(200).json(bookings);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: "Error fetching detailed bookings" });
   }
 });
 

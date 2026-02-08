@@ -22,10 +22,12 @@ h2 {
   border-bottom: none !important;
 }
 
-/* The Smooth Transition Animation */
-.fade-exit {
+/* The "Zoom & Blur" Exit */
+.splash-exit-active {
   opacity: 0;
-  transition: opacity 0.8s ease-in-out;
+  transform: scale(1.05);
+  filter: blur(8px);
+  pointer-events: none;
 }
 
 /* Ensure the Splash Screen stays on top during transition */
@@ -33,9 +35,26 @@ h2 {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   z-index: 9999;
+  transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Smooth Fade-In for the Dashboard so it doesn't just "pop" in */
+.fade-in-content {
+  animation: slideUpFade 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideUpFade {
+  from { 
+    opacity: 0; 
+    transform: translateY(20px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
 }
 
 
@@ -102,8 +121,9 @@ h2 {
 
 .hotel-image {
   width: 100%;
-  height: 220px;
+  height: 200px;
   object-fit: cover;
+  display: block;
 }
 
 .hotel-info {
@@ -123,6 +143,11 @@ h2 {
   font-weight: bold;
   cursor: pointer;
 }
+.image-wrapper {
+  background: #222; /* Placeholder color while loading */
+  min-height: 200px;
+}
+
 
 /* ==========================================
    4. MY BOOKINGS (RECEIPT LOOK)
@@ -178,6 +203,86 @@ h2 {
   box-shadow: 0 0 15px rgba(255, 77, 77, 0.3);
 }
 
+/* MyBookings Page Styles */
+.bookings-container {
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  min-height: 80vh;
+}
+
+.page-title {
+  color: #00d4ff;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.booking-card {
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.booking-card:hover {
+  transform: translateY(-5px);
+  border-color: #00d4ff;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.booking-details h3 {
+  margin: 0 0 5px 0;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.booking-details p {
+  color: #aaa;
+  margin: 0 0 10px 0;
+}
+
+.status-badge {
+  background: rgba(0, 212, 255, 0.1);
+  color: #00d4ff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border: 1px solid #00d4ff;
+  display: inline-block;
+}
+
+.cancel-btn {
+  background: transparent;
+  color: #ff4d4d;
+  border: 1px solid #ff4d4d;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.cancel-btn:hover {
+  background: #ff4d4d;
+  color: white;
+  box-shadow: 0 0 15px rgba(255, 77, 77, 0.4);
+}
+
+.empty-state-box {
+  text-align: center;
+  padding: 60px;
+  background: #1a1a1a;
+  border: 1px dashed #444;
+  border-radius: 12px;
+  color: #888;
+}
+
 /* ==========================================
    5. ANIMATIONS
    ========================================== */
@@ -209,8 +314,9 @@ h2 {
 }
 
 .divider {
-  width: 80px;
+  width: 60px;
   height: 3px;
-  background: #00d4ff;
-  margin-bottom: 10px;
+  background: linear-gradient(90deg, #00d4ff, transparent);
+  margin: 10px 0 20px 0;
+  border-radius: 2px;
 }
