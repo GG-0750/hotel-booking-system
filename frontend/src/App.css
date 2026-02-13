@@ -62,37 +62,86 @@ h2 {
    2. SEARCH PAGE & LAYOUT
    ========================================== */
 .page-container {
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
   min-height: 100vh;
-  padding: 100px 60px; /* Room for sidebar and breathing space */
-  background-color: #121212;
-  color: #ffffff;
 }
 
 .search-controls {
   display: flex;
-  gap: 15px; /* Space between input and button */
+  gap: 15px;
   margin-bottom: 40px;
+  justify-content: center;
   align-items: center;
 }
 
 .search-input {
-  padding: 14px;
-  width: 350px;
-  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  padding: 15px 20px;
   background: #1a1a1a;
-  color: white;
-  border: 1px solid #333;
+  border: 2px solid #333;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #00d4ff;
+  box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
 }
 
 .search-btn {
-  padding: 14px 25px;
-  background: #00d4ff;
-  color: white;
+  padding: 15px 40px;
+  background: linear-gradient(135deg, #00d4ff, #0099cc);
   border: none;
   border-radius: 10px;
+  color: #000;
   font-weight: bold;
+  font-size: 1rem;
   cursor: pointer;
+  transition: all 0.3s;
 }
+
+.search-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 25px rgba(0, 212, 255, 0.5);
+}
+
+.no-results {
+  text-align: center;
+  color: #aaa;
+  font-size: 1.1rem;
+  margin-top: 100px;
+  padding: 60px 40px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.no-results::before {
+  content: "🔍";
+  display: block;
+  font-size: 4rem;
+  margin-bottom: 20px;
+  opacity: 0.3;
+}
+
+/* ==========================================
+   6. PAGE TITLE ALIGNMENT FIX
+   ========================================== */
+.page-container > h2:first-child,
+.page-container > h3:first-child {
+  text-align: center;
+  padding-top: 80px;
+  margin-bottom: 30px;
+}
+
+
 
 /* ==========================================
    3. HOTEL CARDS & GRID
@@ -205,10 +254,11 @@ h2 {
 
 /* MyBookings Page Styles */
 .bookings-container {
-  padding: 40px 20px;
-  max-width: 800px;
-  margin: 0 auto;
-  min-height: 80vh;
+  padding: 100px 60px;
+  min-height: 100vh;
+  background-color: #121212;
+  color: white;
+  padding-left: 80px; /* Space for navbar */
 }
 
 .page-title {
@@ -283,6 +333,23 @@ h2 {
   color: #888;
 }
 
+.booking-summary {
+  text-align: center;
+  padding: 40px 20px;
+  margin-top: 20px;
+}
+
+.booking-summary h2 {
+  color: #00d4ff;
+  margin-bottom: 15px;
+}
+
+.booking-summary p {
+  color: #aaa;
+  font-size: 1.1rem;
+}
+
+
 /* ==========================================
    5. ANIMATIONS
    ========================================== */
@@ -309,6 +376,8 @@ h2 {
 .dashboard-welcome h2 {
   color: #00d4ff; /* Blue accent for the name */
   font-size: 2.5rem;
+  text-align: center;
+  padding-top: 80px;
   text-decoration: none !important;
   border-bottom: none !important;
 }
@@ -317,6 +386,54 @@ h2 {
   width: 60px;
   height: 3px;
   background: linear-gradient(90deg, #00d4ff, transparent);
-  margin: 10px 0 20px 0;
+  margin: 10px auto 20px auto; 
   border-radius: 2px;
+}
+
+/*Recommendation styling in dashboard*/
+.recommendations-section {
+  margin-top: 40px;
+}
+
+.recommendations-section h3 {
+  color: #00d4ff;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 20px;
+}
+
+.recommendation-card {
+  padding: 20px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 10px;
+  transition: transform 0.3s;
+}
+
+.recommendation-card:hover {
+  transform: translateY(-5px);
+  border-color: #00d4ff;
+}
+
+.recommendation-card h4 {
+  color: #fff;
+  margin-bottom: 8px;
+}
+
+.recommendation-description {
+  font-size: 0.85rem;
+  color: #ccc;
+  font-style: italic;
+  margin: 10px 0;
+  flex-grow: 1;
 }

@@ -1,5 +1,4 @@
 import { useEffect,useState } from 'react';
-import Footer from './components/footer';
 import './App.css'; 
 
 
@@ -68,13 +67,14 @@ return (
       </button>
     </div>
 
-    <div className="hotel-grid">
-      {results.length === 0 ? (
-        <p className="no-results">No results found. Try searching for "Chennai".</p>
-      ) : (
-        results.map(h => (
+    {results.length === 0 ? (
+      <div className="no-results">
+        <p>No results found. Try searching for "Chennai".</p>
+      </div>
+    ) : (
+      <div className="hotel-grid">
+        {results.map(h => (
           <div key={h._id} className="hotel-card">
-            {/* If you have images in your DB, add them here */}
             {h.image && <img src={h.image} alt={h.name} className="hotel-image" />}
             
             <div className="hotel-info">
@@ -87,10 +87,10 @@ return (
               </button>
             </div>
           </div>
-        ))
-      )}
-    </div>
-    <Footer />
+        ))}
+      </div>
+    )}
+    
   </div>
 );
 }
